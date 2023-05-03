@@ -47,6 +47,42 @@ func algoTwo(wordsDict []string, word1 string, word2 string) int {
 	return shortest
 }
 
+func algoThree(wordsDict []string, word1 string, word2 string) int {
+
+	shortest, word1i, word2i := 10001, -1, -1
+
+	for i, v := range wordsDict {
+
+		if word1 == v && word1 == word2 {
+			if word1i != -1 {
+				dif := abs(word1i, i)
+				if dif < shortest {
+					shortest = dif
+				}
+			}
+			word1i = i
+		} else if word1 == v {
+			word1i = i
+			if word2i != -1 {
+				dif := abs(word1i, word2i)
+				if dif < shortest {
+					shortest = dif
+				}
+			}
+		} else if word2 == v {
+			word2i = i
+			if word1i != -1 {
+				dif := abs(word1i, word2i)
+				if dif < shortest {
+					shortest = dif
+				}
+			}
+		}
+	}
+
+	return shortest
+}
+
 func abs(v, vv int) int {
 	if v-vv < 0 {
 		return vv - v
